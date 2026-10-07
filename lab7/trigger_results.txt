@@ -1,0 +1,48 @@
+SELECT name FROM sqlite_master WHERE type = 'trigger' ORDER BY name;
+name
+article_after_delete
+article_after_insert
+article_after_update
+
+INSERT INTO articles_article (title, text, created_date, author_id)
+VALUES ('Работа с триггерами', 'Триггер сохраняет сведения о добавлении статьи.',
+        DATE('now'), (SELECT id FROM auth_user WHERE username = 'labadmin'));
+Изменено строк: 1
+
+SELECT id, title FROM articles_article WHERE title = 'Работа с триггерами';
+id | title
+9 | Работа с триггерами
+
+SELECT operation, article_id, old_title, new_title FROM article_changes ORDER BY id;
+operation | article_id | old_title | new_title
+INSERT | 9 | NULL | Работа с триггерами
+
+UPDATE articles_article SET title = 'Триггеры SQLite'
+WHERE title = 'Работа с триггерами';
+Изменено строк: 1
+
+SELECT id, title FROM articles_article WHERE title = 'Триггеры SQLite';
+id | title
+9 | Триггеры SQLite
+
+SELECT operation, article_id, old_title, new_title FROM article_changes ORDER BY id;
+operation | article_id | old_title | new_title
+INSERT | 9 | NULL | Работа с триггерами
+UPDATE | 9 | Работа с триггерами | Триггеры SQLite
+
+DELETE FROM articles_article WHERE title = 'Триггеры SQLite';
+Изменено строк: 1
+
+SELECT id, title FROM articles_article WHERE title = 'Триггеры SQLite';
+id | title
+(0 строк)
+
+SELECT operation, article_id, old_title, new_title FROM article_changes ORDER BY id;
+operation | article_id | old_title | new_title
+INSERT | 9 | NULL | Работа с триггерами
+UPDATE | 9 | Работа с триггерами | Триггеры SQLite
+DELETE | 9 | Триггеры SQLite | NULL
+
+SELECT COUNT(*) AS article_count FROM articles_article;
+article_count
+8
