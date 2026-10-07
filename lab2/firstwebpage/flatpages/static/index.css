@@ -1,0 +1,13 @@
+body {
+    background: #1abc9c;
+    font-family: Tahoma, Arial, sans-serif;
+    color: #333;
+}
+h1 { font-family: Georgia, "Times New Roman", serif; }
+table { border-collapse: collapse; width: 100%; }
+p, h4 { font-size: 20px; margin-bottom: 0; }
+h4 { font-size: 18px; }
+ul, ol { margin: 0; }
+table tr td { padding: 5px; }
+table, th, td { border: 1px solid #333; }
+img { height: 30px; width: auto; }

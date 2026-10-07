@@ -1,0 +1,8 @@
+runtime/
+__pycache__/
+*.pyc
+**/db_project_name
+**/db_firstwebpage
+**/db_blog
+**/accounts.txt
+**/screenshots/
