@@ -1,0 +1,98 @@
+body {
+    background: #1abc9c;
+    font-family: Tahoma, Arial, sans-serif;
+    color: #ffffff;
+    margin: 0;
+}
+
+.header {
+    width: 960px;
+    max-width: calc(100% - 40px);
+    margin: 30px auto 40px;
+}
+
+.header img {
+    display: block;
+    width: 318px;
+    height: auto;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+div.archive, .content {
+    width: 960px;
+    max-width: calc(100% - 40px);
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.one-post { margin-bottom: 40px; }
+.post-title { margin: 0 0 18px; font-size: 36px; line-height: 1.2; }
+.post-title a, .all-posts { color: #ffffff; }
+.article-info { font-size: 16px; line-height: 24px; }
+.article-author { width: 50%; float: left; font-weight: bold; }
+.article-created-date { text-align: right; font-style: italic; }
+.article-text { font-size: 18px; line-height: 1.4; margin: 18px 0 0; }
+.article-text p { margin: 0 0 16px; }
+
+.article .header { display: flex; align-items: center; justify-content: space-between; }
+.article .header img { margin-left: 0; margin-right: 0; }
+.all-posts { font-size: 22px; font-weight: bold; }
+
+.archive .header { position: relative; }
+.new-post { position: absolute; right: 0; top: 18px; color: #ffffff; font-size: 18px; font-weight: bold; }
+.create-post .header { display: flex; align-items: center; justify-content: space-between; }
+.create-post .header img { margin-left: 0; margin-right: 0; }
+.post-form input[type="text"], .post-form textarea {
+    display: block;
+    box-sizing: border-box;
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 18px;
+    border: 1px solid #117864;
+    border-radius: 4px;
+    background: #ffffff;
+    color: #333333;
+    font: inherit;
+    font-size: 18px;
+}
+.post-form textarea { min-height: 220px; resize: vertical; }
+.post-form input[type="submit"] {
+    padding: 12px 24px;
+    border: 0;
+    border-radius: 4px;
+    background: #117864;
+    color: #ffffff;
+    font: inherit;
+    font-size: 18px;
+    cursor: pointer;
+}
+.form-errors { font-size: 18px; font-weight: bold; margin: 0 0 18px; }
+
+.header { position: relative; }
+.header-links { position: absolute; right: 0; top: 12px; text-align: right; }
+.header-links .all-posts { display: inline-block; margin-left: 14px; }
+.header-links .new-post { position: static; display: block; margin-top: 12px; }
+.account .header img { margin-left: 0; }
+.account-form { max-width: 480px; }
+.account-form input {
+    display: block;
+    box-sizing: border-box;
+    width: 100%;
+    margin-bottom: 18px;
+    padding: 12px;
+    border: 1px solid #117864;
+    border-radius: 4px;
+    font: inherit;
+    font-size: 18px;
+}
+.account-form button {
+    padding: 12px 24px;
+    border: 0;
+    border-radius: 4px;
+    background: #117864;
+    color: #ffffff;
+    font: inherit;
+    font-size: 18px;
+    cursor: pointer;
+}

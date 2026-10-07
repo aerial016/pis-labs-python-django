@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="318" height="56" viewBox="0 0 318 56">
+  <rect width="318" height="56" rx="10" fill="#16a085"/>
+  <path d="M0 36H318V46Q318 56 308 56H10Q0 56 0 46Z" fill="#117864"/>
+  <text x="12" y="41" textLength="294" lengthAdjust="spacingAndGlyphs" font-family="Tahoma,Arial,sans-serif" font-size="34" font-weight="bold" fill="white">Django public blog</text>
+</svg>

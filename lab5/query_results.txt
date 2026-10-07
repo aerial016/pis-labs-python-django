@@ -1,4 +1,3 @@
--- 1. Статьи и их авторы.
 SELECT a.id, a.title, u.username AS author, a.created_date
 FROM articles_article AS a
 JOIN auth_user AS u ON u.id = a.author_id
@@ -14,7 +13,6 @@ id | title | author | created_date
 8 | Проверка заполнения формы | labadmin | 2026-10-07
 Количество строк: 8
 
--- 2. Количество статей каждого автора.
 SELECT u.username AS author, COUNT(a.id) AS article_count
 FROM auth_user AS u
 LEFT JOIN articles_article AS a ON a.author_id = u.id
@@ -24,7 +22,6 @@ author | article_count
 labadmin | 8
 Количество строк: 1
 
--- 3. Статьи пользователя labadmin: вложенный запрос IN.
 SELECT id, title, created_date
 FROM articles_article
 WHERE author_id IN (
@@ -42,7 +39,6 @@ id | title | created_date
 8 | Проверка заполнения формы | 2026-10-07
 Количество строк: 8
 
--- 4. Статьи длиннее среднего: вложенный запрос с AVG.
 SELECT id, title, LENGTH(text) AS text_length
 FROM articles_article
 WHERE LENGTH(text) > (
@@ -55,7 +51,6 @@ id | title | text_length
 8 | Проверка заполнения формы | 267
 Количество строк: 3
 
--- 5. Пользователи, у которых есть статьи: коррелированный запрос EXISTS.
 SELECT u.id, u.username
 FROM auth_user AS u
 WHERE EXISTS (
@@ -66,7 +61,6 @@ id | username
 1 | labadmin
 Количество строк: 1
 
--- 6. Самая длинная статья каждого автора: JOIN и вложенный запрос.
 SELECT a.id, a.title, u.username AS author, LENGTH(a.text) AS text_length
 FROM articles_article AS a
 JOIN auth_user AS u ON u.id = a.author_id

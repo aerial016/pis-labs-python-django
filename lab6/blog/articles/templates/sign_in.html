@@ -1,0 +1,29 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <title>Вход</title>
+  <link rel="stylesheet" href="{% static 'css/article.css' %}">
+</head>
+<body class="account">
+  <div class="header">
+    <img src="{% static 'img/logo.svg' %}" alt="Django public blog">
+    <div class="header-links">
+      <a class="all-posts" href="{% url 'archive' %}">Все записи</a>
+      <a class="all-posts" href="{% url 'register' %}">Регистрация</a>
+      <a class="all-posts" href="{% url 'sign_in' %}">Вход</a>
+    </div>
+  </div>
+  <div class="content">
+    <h1>Вход</h1>
+    <form class="account-form" method="post">
+      {% csrf_token %}
+      <input type="text" name="username" aria-label="Логин" placeholder="Логин" value="{{ form.username }}" required>
+      <input type="password" name="password" aria-label="Пароль" placeholder="Пароль" required>
+      {% if form.errors %}<p class="form-errors" role="alert">{{ form.errors }}</p>{% endif %}
+      <button type="submit">Войти</button>
+    </form>
+  </div>
+</body>
+</html>

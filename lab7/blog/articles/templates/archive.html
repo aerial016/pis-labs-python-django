@@ -9,9 +9,13 @@
 <body class="archive">
   <div class="header">
     <img src="{% static 'img/logo.svg' %}" alt="Django public blog">
+    <div class="header-links">
+      <a class="all-posts" href="{% url 'register' %}">Регистрация</a>
+      <a class="all-posts" href="{% url 'sign_in' %}">Вход</a>
     {% if user.is_authenticated %}
     <a class="new-post" href="{% url 'create_post' %}">Написать статью</a>
     {% endif %}
+    </div>
   </div>
   <div class="student-filters">
     <form id="group-filter">
@@ -24,7 +28,6 @@
       <input id="student-average" type="text" inputmode="decimal" required>
       <button type="submit">Фильтровать по среднему баллу</button>
     </form>
-    <p>Таблицы студентов выводятся в консоль браузера (F12 → Console).</p>
   </div>
   <div class="archive">
     {% for post in posts %}

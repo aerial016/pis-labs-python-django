@@ -1,12 +1,10 @@
--- 1. Выбор отдельной статьи по идентификатору: оператор равенства.
 SELECT id, title, text, created_date, author_id
 FROM articles_article
 WHERE id = 5;
 id | title | text | created_date | author_id
-5 | Архив статей | Представление archive получает статьи из базы данных и передаёт их шаблону. Страница показывает заголовок, автора, дату и сокращённый текст каждой статьи. Эта запись добавлена через SQLite после создания архива. | 2026-10-07 | 1
+5 | Архив статей | Представление archive получает статьи из базы данных и передаёт их шаблону. Страница показывает заголовок, автора, дату и сокращённый текст каждой статьи. | 2026-10-07 | 1
 Количество строк: 1
 
--- 2. Выбор статей о Django с текстом длиннее 140 символов: AND, LIKE, >, LENGTH.
 SELECT id, title, LENGTH(text) AS text_length
 FROM articles_article
 WHERE title LIKE '%Django%' AND LENGTH(text) > 140
@@ -15,7 +13,6 @@ id | title | text_length
 2 | Создание web-страницы в Django | 181
 Количество строк: 1
 
--- 3. Статьи автора за 2026 год с датой и отрывком: JOIN, AND, STRFTIME, SUBSTR, CASE, ||.
 SELECT a.id, a.title, u.username AS author,
        STRFTIME('%d.%m.%Y', a.created_date) AS created_date,
        SUBSTR(a.text, 1, 140) || CASE WHEN LENGTH(a.text) > 140 THEN '...' ELSE '' END AS excerpt
@@ -31,7 +28,6 @@ id | title | author | created_date | excerpt
 5 | Архив статей | labadmin | 07.10.2026 | Представление archive получает статьи из базы данных и передаёт их шаблону. Страница показывает заголовок, автора, дату и сокращённый текст ...
 Количество строк: 5
 
--- 4. Статистика по авторам: GROUP BY, HAVING, >=, COUNT, AVG, MIN, MAX, ROUND, LENGTH.
 SELECT u.username AS author, COUNT(*) AS article_count,
        ROUND(AVG(LENGTH(a.text)), 2) AS average_length,
        MIN(LENGTH(a.text)) AS min_length, MAX(LENGTH(a.text)) AS max_length
@@ -41,18 +37,17 @@ GROUP BY u.id, u.username
 HAVING COUNT(*) >= 1
 ORDER BY u.username;
 author | article_count | average_length | min_length | max_length
-labadmin | 5 | 196.0 | 181 | 216
+labadmin | 5 | 176.2 | 154 | 191
 Количество строк: 1
 
--- 5. Три наиболее длинные статьи из выбранных: IN, OR, LIKE, LENGTH, ORDER BY, LIMIT.
 SELECT id, title, LENGTH(text) AS text_length
 FROM articles_article
 WHERE id IN (1, 3, 5) OR title LIKE '%SQLite%'
 ORDER BY LENGTH(text) DESC, id
 LIMIT 3;
 id | title | text_length
-1 | Начало работы с Python | 216
-5 | Архив статей | 211
 3 | Модель статьи | 191
+4 | Работа с SQLite | 181
+1 | Начало работы с Python | 174
 Количество строк: 3
 
