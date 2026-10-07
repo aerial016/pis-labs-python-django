@@ -1,0 +1,82 @@
+-- 1. Статьи и их авторы.
+SELECT a.id, a.title, u.username AS author, a.created_date
+FROM articles_article AS a
+JOIN auth_user AS u ON u.id = a.author_id
+ORDER BY a.id;
+id | title | author | created_date
+1 | Начало работы с Python | labadmin | 2026-10-07
+2 | Создание web-страницы в Django | labadmin | 2026-10-07
+3 | Модель статьи | labadmin | 2026-10-07
+4 | Работа с SQLite | labadmin | 2026-10-07
+5 | Архив статей | labadmin | 2026-10-07
+6 | Связь статьи с автором | labadmin | 2026-10-07
+7 | Использование вложенных запросов | labadmin | 2026-10-07
+8 | Проверка заполнения формы | labadmin | 2026-10-07
+Количество строк: 8
+
+-- 2. Количество статей каждого автора.
+SELECT u.username AS author, COUNT(a.id) AS article_count
+FROM auth_user AS u
+LEFT JOIN articles_article AS a ON a.author_id = u.id
+GROUP BY u.id, u.username
+ORDER BY article_count DESC, u.username;
+author | article_count
+labadmin | 8
+Количество строк: 1
+
+-- 3. Статьи пользователя labadmin: вложенный запрос IN.
+SELECT id, title, created_date
+FROM articles_article
+WHERE author_id IN (
+    SELECT id FROM auth_user WHERE username = 'labadmin'
+)
+ORDER BY id;
+id | title | created_date
+1 | Начало работы с Python | 2026-10-07
+2 | Создание web-страницы в Django | 2026-10-07
+3 | Модель статьи | 2026-10-07
+4 | Работа с SQLite | 2026-10-07
+5 | Архив статей | 2026-10-07
+6 | Связь статьи с автором | 2026-10-07
+7 | Использование вложенных запросов | 2026-10-07
+8 | Проверка заполнения формы | 2026-10-07
+Количество строк: 8
+
+-- 4. Статьи длиннее среднего: вложенный запрос с AVG.
+SELECT id, title, LENGTH(text) AS text_length
+FROM articles_article
+WHERE LENGTH(text) > (
+    SELECT AVG(LENGTH(text)) FROM articles_article
+)
+ORDER BY text_length DESC, id;
+id | title | text_length
+6 | Связь статьи с автором | 294
+7 | Использование вложенных запросов | 279
+8 | Проверка заполнения формы | 267
+Количество строк: 3
+
+-- 5. Пользователи, у которых есть статьи: коррелированный запрос EXISTS.
+SELECT u.id, u.username
+FROM auth_user AS u
+WHERE EXISTS (
+    SELECT 1 FROM articles_article AS a WHERE a.author_id = u.id
+)
+ORDER BY u.id;
+id | username
+1 | labadmin
+Количество строк: 1
+
+-- 6. Самая длинная статья каждого автора: JOIN и вложенный запрос.
+SELECT a.id, a.title, u.username AS author, LENGTH(a.text) AS text_length
+FROM articles_article AS a
+JOIN auth_user AS u ON u.id = a.author_id
+WHERE LENGTH(a.text) = (
+    SELECT MAX(LENGTH(other.text))
+    FROM articles_article AS other
+    WHERE other.author_id = a.author_id
+)
+ORDER BY u.username, a.id;
+id | title | author | text_length
+6 | Связь статьи с автором | labadmin | 294
+Количество строк: 1
+
